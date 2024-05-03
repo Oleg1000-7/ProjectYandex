@@ -1,14 +1,26 @@
-import pygame
-from main import screen
 from button import Button
-from constants import*
+from player import Player
+from constants import *
 
-def game():
-    scene = "GAME"
-    screen.fill(WHITE)
+all_sprites = pygame.sprite.Group()
+player = Player()
+all_sprites.add(player)
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_q]:
-        scene = "MENU"
+main_surface = pygame.Surface((screen_w, screen_h))
 
-    return scene
+class Game:
+    def __init__(self):
+        pass
+
+    def __call__(self, keys, mouse_pos, mouse_k):
+        screen.blit(main_surface, (0, 0))
+        main_surface.fill(BLACK)
+
+        scene = "GAME"
+        if keys[pygame.K_q]:
+            scene = "MENU"
+
+        all_sprites.update(keys)
+        all_sprites.draw(main_surface)
+
+        return scene

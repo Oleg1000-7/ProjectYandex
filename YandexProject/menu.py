@@ -1,28 +1,27 @@
-import pygame
-from main import screen
 from button import Button
-
-screen_w, screen_h = screen.get_size()
-main_surface = pygame.Surface((screen_w, screen_h))
-main_surface_w, main_surface_h = main_surface.get_size()
-
-btn_play = Button(main_surface, main_surface_w, main_surface_h,  100, 50, text="Play")
-btn_info = Button(main_surface, main_surface_w, main_surface_h + 60, 100, 50, text="Information")
-btn = Button(main_surface, main_surface_w, main_surface_h + 60, 100, 50, text="Play")
+from constants import *
 
 
-def menu():
-    scene = "MENU"
-    screen.blit(main_surface, (0, 0))
+class Menu:
+    def __init__(self):
+        self.main_surface = pygame.Surface((screen_w, screen_h))
+        main_surface_w, main_surface_h = self.main_surface.get_size()
+        self.buttons = [
+            Button(self.main_surface, main_surface_w // 2, main_surface_h // 2, 150, 50, text="Play"),
+            Button(self.main_surface, main_surface_w // 2, main_surface_h // 2 + 60, 150, 50, text="Information"),
+            Button(self.main_surface, main_surface_w // 2, main_surface_h - 100, 100, 50, text="Exit", font_size=25)]
 
-    btn.draw()
-    events = pygame.event.get()
-    mouse = pygame.mouse.get_pos()
+    def __call__(self, mouse_pos, mouse_k):
+        scene = "MENU"
+        screen.blit(self.main_surface, (0, 0))
 
-    for event in events:
-        if event.type == pygame.MOUSEBUTTONDOWN and btn.rect.collidepoint(mouse):
+        for i in self.buttons:
+            i.update(mouse_pos)
+
+        if self.buttons[0].is_clicked(mouse_pos, mouse_k):
             scene = "GAME"
 
-            break
+        if self.buttons[2].is_clicked(mouse_pos, mouse_k):
+            scene = "EXIT"
 
-    return scene
+        return scene

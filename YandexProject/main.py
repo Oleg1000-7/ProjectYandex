@@ -1,38 +1,40 @@
-import pygame
 from constants import *
-from menu import menu
-from game import game
+from menu import Menu
+from game import Game
+from player import Player
 
+clock = pygame.time.Clock()
 pygame.init()
 
-h, w = pygame.display.get_desktop_sizes()[0]
-screen = pygame.display.set_mode((h, w))
-screen_w, screen_h = screen.get_size()
-
+game = Game()
+menu = Menu()
 scene = "MENU"
 level = 1
 
 keys = list()
 events = list()
 mouse = tuple()
-Running = True
-while Running:
+running = True
+while running:
+    clock.tick(60)
     pygame.display.flip()
     screen.fill(BLACK)
+
     keys = pygame.key.get_pressed()
-    mouse = pygame.mouse.get_pos()
+    mouse_pos = pygame.mouse.get_pos()
+    mouse_k = pygame.mouse.get_pressed()
     events = pygame.event.get()
 
     if scene == "MENU":
-        scene = menu()
+        scene = menu(mouse_pos, mouse_k)
 
     elif scene == "GAME":
-        scene = game()
+        scene = game(keys, mouse_pos, mouse_k)
 
-    Running = not keys[pygame.K_ESCAPE]
+    running = not keys[pygame.K_ESCAPE] and scene != "EXIT"
 
     for event in events:
         if event.type == pygame.QUIT:
-            Running = False
+            running = False
 
 pygame.quit()
