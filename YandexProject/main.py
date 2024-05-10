@@ -15,6 +15,7 @@ keys = list()
 events = list()
 mouse = tuple()
 running = True
+
 while running:
     clock.tick(60)
     pygame.display.flip()
