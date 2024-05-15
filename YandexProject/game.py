@@ -15,6 +15,7 @@ all_sprites.add(player)
 
 main_surface = pygame.Surface((screen_w, screen_h))
 
+
 class Game:
     def __init__(self):
         pass
@@ -27,6 +28,8 @@ class Game:
         if keys[pygame.K_q]:
             scene = "MENU"
 
+        text = pygame.font.SysFont("Arial", 30).render(str(player.offset), True, WHITE)
+        main_surface.blit(text, (100, 100))
         player.update(keys, all_objects)
         all_objects.update(player.get_camera_cords())
         all_sprites.draw(main_surface)
