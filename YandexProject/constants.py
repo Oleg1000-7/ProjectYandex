@@ -5,8 +5,9 @@ h, w = pygame.display.get_desktop_sizes()[0]
 screen = pygame.display.set_mode((h, w))
 screen_w, screen_h = screen.get_size()
 FPS = 60
-BLOCK_WIDTH = screen_w * (50 / 1920)
-BLOCK_HEIGHT = screen_h * (50 / 1080)
+print(screen_w, screen_h)
+BLOCK_WIDTH = screen_w * (50 / 1280)
+BLOCK_HEIGHT = screen_h * (50 / 720)
 # COLORS
 BLACK = pygame.Color(0, 0, 0, 255)
 WHITE = pygame.Color(255, 255, 255, 255)

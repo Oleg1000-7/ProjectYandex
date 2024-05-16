@@ -28,7 +28,7 @@ class Game:
         if keys[pygame.K_q]:
             scene = "MENU"
 
-        text = pygame.font.SysFont("Arial", 30).render(str(player.offset), True, WHITE)
+        text = pygame.font.SysFont("Arial", 30).render(str(player.rect.h), True, WHITE)
         main_surface.blit(text, (100, 100))
         player.update(keys, all_objects)
         all_objects.update(player.get_camera_cords())
