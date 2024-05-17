@@ -10,8 +10,12 @@ all_sprites = pygame.sprite.Group()
 all_objects = pygame.sprite.Group()
 player = Player()
 all_sprites.add(MAP)
-all_objects.add(MAP)
+all_sprites.add(Object((0, 0)))
 all_sprites.add(player)
+
+for i in all_sprites:
+    if type(i) == Object:
+        all_objects.add(i)
 
 main_surface = pygame.Surface((screen_w, screen_h))
 
@@ -28,9 +32,9 @@ class Game:
         if keys[pygame.K_q]:
             scene = "MENU"
 
-        text = pygame.font.SysFont("Arial", 30).render(str(player.rect.h), True, WHITE)
+        text = pygame.font.SysFont("Arial", 30).render(f"{player.speed_x}, {player.speed_y}", True, WHITE)
         main_surface.blit(text, (100, 100))
-        player.update(keys, all_objects)
+        player.update(keys, mouse_k, all_objects)
         all_objects.update(player.get_camera_cords())
         all_sprites.draw(main_surface)
 
