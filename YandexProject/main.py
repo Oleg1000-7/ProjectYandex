@@ -1,13 +1,13 @@
 from constants import *
 from menu import Menu
 from game import Game
-from player import Player
+from settings import Settings
 
 clock = pygame.time.Clock()
 pygame.init()
 
-game = Game()
 menu = Menu()
+settings = Settings()
 scene = "MENU"
 level = 1
 
@@ -30,7 +30,11 @@ while running:
         scene = menu(mouse_pos, mouse_k)
 
     elif scene == "GAME":
+        game = Game()
         scene = game(keys, mouse_pos, mouse_k)
+
+    elif scene == "SETTINGS":
+        scene = settings(mouse_pos, mouse_k)
 
     running = not keys[pygame.K_ESCAPE] and scene != "EXIT"
 

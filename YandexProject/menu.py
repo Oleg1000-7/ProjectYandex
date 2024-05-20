@@ -8,7 +8,7 @@ class Menu:
         main_surface_w, main_surface_h = self.main_surface.get_size()
         self.buttons = [
             Button(self.main_surface, main_surface_w // 2, main_surface_h // 2, 150, 50, text="Play"),
-            Button(self.main_surface, main_surface_w // 2, main_surface_h // 2 + 60, 150, 50, text="Information"),
+            Button(self.main_surface, main_surface_w // 2, main_surface_h // 2 + 60, 150, 50, text="Settings"),
             Button(self.main_surface, main_surface_w // 2, main_surface_h - 100, 100, 50, text="Exit", font_size=25)]
 
     def __call__(self, mouse_pos, mouse_k):
@@ -20,6 +20,9 @@ class Menu:
 
         if self.buttons[0].is_clicked(mouse_pos, mouse_k):
             scene = "GAME"
+
+        if self.buttons[1].is_clicked(mouse_pos, mouse_k):
+            scene = "SETTINGS"
 
         if self.buttons[2].is_clicked(mouse_pos, mouse_k):
             scene = "EXIT"
